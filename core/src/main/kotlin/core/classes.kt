@@ -1,33 +1,20 @@
 package core
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import ktx.app.KtxGame
-import ktx.app.KtxScreen
+import ktx.app.KtxApplicationAdapter
+import ktx.app.clearScreen
 import ktx.graphics.use
 import lib.LimitedQueue
 
-class Game : KtxGame<MainScreen>(MainScreen()) {
-   override fun create() {
-      super.create()
-      World.g = 70000.0
-   }
-}
-
-class MainScreen() : KtxScreen {
+class MyGame : KtxApplicationAdapter {
+   private var isGamePaused = false
    private val length = 1000
-   private val comets = listOf(
-        Comet(Body(1.0, 200.0, 200.0, 12.0, 0.0), Color.RED, length)
-        , Comet(Body(2.0, 300.0, 400.0, 5.0, -5.0), Color.GREEN, length)
-        , Comet(Body(1.0, 400.0, 300.0, 5.0, -5.0), Color.BLUE, length)
-   ).apply {
-      forEach {comet ->
-         World += comet.body
-      }
-   }
-
+   private val comets = mutableListOf<Comet>()
    private val font by lazy { BitmapFont() }
    private val batch by lazy {
       SpriteBatch().apply {
@@ -43,11 +30,28 @@ class MainScreen() : KtxScreen {
       ShapeRenderer()
    }
 
-   override fun render(delta: Float) {
-      World.calc(delta)
-      for (comet in comets) {
-         comet.addPoint()
+   override fun create() {
+      World.g = 70000.0
+      comets += Comet(Body(1.0, 100.0, 100.0, 10.0, 5.0), Color.RED, length)
+      comets += Comet(Body(2.0, 300.0, 400.0, -5.0, -2.5), Color.GREEN, length)
+      comets += Comet(Body(1.0, 400.0, 300.0, 5.0, -5.0), Color.BLUE, length)
+
+      comets.forEach {comet ->
+         World += comet.body
       }
+   }
+
+   override fun render() {
+      val deltaTime = Gdx.graphics.deltaTime
+      doInput()
+      if (!isGamePaused) {
+         doLogic(deltaTime)
+         doDraw()
+      }
+   }
+
+   private fun doDraw() {
+      clearScreen(0f,0f,0f,0f)
       batch.use {
          font.draw(it, "pX = ${World.pX}", 700f, 580f)
          font.draw(it, "pY = ${World.pY}", 700f, 560f)
@@ -66,6 +70,19 @@ class MainScreen() : KtxScreen {
             val point = comet.points.last()
             it.circle(point.x, point.y, 3f)
          }
+      }
+   }
+
+   private fun doLogic(dt: Float) {
+      World.calc(dt)
+      for (comet in comets) {
+         comet.addPoint()
+      }
+   }
+
+   private fun doInput() {
+      if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+         isGamePaused = !isGamePaused
       }
    }
 

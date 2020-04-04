@@ -3,9 +3,7 @@ package iva
 import com.badlogic.gdx.Files
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
-import core.Game
-import lib.LimitedQueue
-import java.util.*
+import core.MyGame
 
 fun main() {
 
@@ -21,6 +19,6 @@ fun runApplication() {
             addIcon("moon$size.png", Files.FileType.Internal)
         }
     }
-    LwjglApplication(Game(), configuration)
+    LwjglApplication(MyGame(), configuration)
 }
 
