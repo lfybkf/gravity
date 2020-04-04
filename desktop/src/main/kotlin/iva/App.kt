@@ -17,7 +17,7 @@ fun runApplication() {
         title = "Gravity"
         width = 800
         height = 600
-        for (size in intArrayOf(128)) {
+        for (size in intArrayOf(128,32,16)) {
             addIcon("moon$size.png", Files.FileType.Internal)
         }
     }

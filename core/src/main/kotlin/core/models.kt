@@ -7,6 +7,8 @@ object World {
    var g = 32146.8
    private val bodies = mutableListOf<Body>()
    private fun otherBodies(body: Body): List<Body> = bodies.filter { it != body }
+   val pX:Double get() = bodies.sumByDouble { it.m * it.vX }
+   val pY:Double get() = bodies.sumByDouble { it.m * it.vY }
 
    operator fun plusAssign(body: Body) {
       bodies += body
