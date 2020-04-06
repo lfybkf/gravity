@@ -11,7 +11,7 @@ fun main() {
 }
 
 fun runApplication() {
-    val screenX = 1200
+    val screenX = 1400
     val screenY = 800
     val configuration = LwjglApplicationConfiguration().apply {
         title = "Gravity"
@@ -21,8 +21,8 @@ fun runApplication() {
             addIcon("moon$size.png", Files.FileType.Internal)
         }
     }
-    World.x = screenX
-    World.y = screenY
+    World.width = screenX
+    World.height = screenY
     LwjglApplication(MyGame(), configuration)
 }
 

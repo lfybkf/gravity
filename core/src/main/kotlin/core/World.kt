@@ -3,8 +3,8 @@ package core
 import kotlin.math.pow
 
 object World {
-   var x: Int = 0
-   var y: Int = 0
+   var width: Int = 0
+   var height: Int = 0
    private lateinit var initialImpulse: Vector
    var t = 1
    var g = 1.0
@@ -65,7 +65,7 @@ object World {
       initialImpulse = Vector(pX, pY)
    }
 
-   fun percent(placeX: Int, placeY: Int) = Vector(x * placeX * 0.01, y * placeY * 0.01)
+   fun percent(placeX: Int, placeY: Int) = Vector(width * placeX * 0.01, height * placeY * 0.01)
 
    val center:Vector get() {
       val result = Vector()

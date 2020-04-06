@@ -52,8 +52,8 @@ class MyGame : KtxApplicationAdapter {
    private fun doDraw() {
       clearScreen(0f,0f,0f,0f)
       batch.use {
-         font.draw(it, "pX = ${World.pX.roundToInt()}", World.x - 50f, World.y - 80f)
-         font.draw(it, "pY = ${World.pY.roundToInt()}", World.x - 50f, World.y - 100f)
+         font.draw(it, "pX = ${World.pX.roundToInt()}", World.width - 50f, World.height - 80f)
+         font.draw(it, "pY = ${World.pY.roundToInt()}", World.width - 50f, World.height - 100f)
       }
       shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
          it.color = Color.YELLOW

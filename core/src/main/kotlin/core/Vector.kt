@@ -7,6 +7,7 @@ infix fun Double.v2(y: Double) = Vector(this, y)
 infix fun Int.v2(y: Int) = Vector(this.toDouble(), y.toDouble())
 
 class Vector(var x: Double = 0.0, var y: Double = 0.0) {
+   constructor(x:Int, y:Int):this(x.toDouble(), y.toDouble())
    operator fun plus(other: Vector) = Vector(this.x + other.x, this.y + other.y)
    operator fun minus(other: Vector) = Vector(this.x - other.x, this.y - other.y)
    operator fun plusAssign(other: Vector) {
