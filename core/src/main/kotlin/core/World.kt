@@ -23,7 +23,7 @@ object World {
             body.calc(dt * t)
          }
       }
-//      compensateImpulse()
+      compensateImpulse()
    }
 
    /**

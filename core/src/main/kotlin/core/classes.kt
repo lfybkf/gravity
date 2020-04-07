@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Pool
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+fun Double.format(n:Int) = "%.${n}f".format(this)
+
 class Point(val x: Float, val y: Float)
 
 class Body(val m: Double, val position: Vector,
@@ -24,6 +26,7 @@ class Body(val m: Double, val position: Vector,
       velocity.x += deltaImpulse.x / m
       velocity.y += deltaImpulse.y / m
    }
+   val info: String get() = "${position.info} ${velocity.info}"
 }
 
 object PoolVector : Pool<Vector>(100, 1000) {

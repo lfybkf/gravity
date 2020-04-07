@@ -41,4 +41,5 @@ class Vector(var x: Double = 0.0, var y: Double = 0.0) {
    }
 
    val length get() = sqrt(x.pow(2) + y.pow(2))
+   val info get() = "(${x.format(2)}:${y.format(2)})"
 }
