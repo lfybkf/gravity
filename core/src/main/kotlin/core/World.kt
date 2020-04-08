@@ -2,7 +2,10 @@ package core
 
 import kotlin.math.pow
 
+enum class Potential { GRAVITY, SPRING, LINEAR}
+
 object World {
+   private val potential = Potential.GRAVITY
    var width: Int = 0
    var height: Int = 0
    private lateinit var initialImpulse: Vector
@@ -31,9 +34,21 @@ object World {
     */
    private fun Body.calcAcceleration() {
       for (other in otherBodies(this)) {
-         val distance3 = distance(other).pow(3)
-         acceleration.x = other.m * distanceX(other) / distance3
-         acceleration.y = other.m * distanceY(other) / distance3
+         when(potential) {
+            Potential.GRAVITY -> {
+               val distance3 = distance(other).pow(3)
+               acceleration.x = other.m * distanceX(other) / distance3
+               acceleration.y = other.m * distanceY(other) / distance3
+            }
+            Potential.SPRING -> {
+               acceleration.x = 1.0
+               acceleration.y = 1.0
+            }
+            Potential.LINEAR -> {
+
+            }
+         }
+
       }
    }
 
